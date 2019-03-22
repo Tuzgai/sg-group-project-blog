@@ -5,8 +5,8 @@
  */
 package com.sg.blog.Blog.dao;
 
-import PostDTO.Post;
-import PostDTO.Tag;
+import com.sg.blog.Blog.entity.Post;
+import com.sg.blog.Blog.entity.Tag;
 import java.time.LocalDate;
 import java.util.List;
 

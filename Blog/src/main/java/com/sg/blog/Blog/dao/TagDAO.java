@@ -6,7 +6,7 @@ package com.sg.blog.Blog.dao;
  * and open the template in the editor.
  */
 
-import PostDTO.Tag;
+import com.sg.blog.Blog.entity.Tag;
 import java.util.List;
 
 /**
