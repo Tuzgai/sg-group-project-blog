@@ -109,8 +109,10 @@ public class UserDaoDB implements UserDao {
         public User mapRow(ResultSet rs, int i) throws SQLException {
             User user = new User();
             user.setId(rs.getInt("id"));
+            user.setFullname(rs.getString("name"))
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
+            user.setEmail(rs.getString("email"))
             user.setEnabled(rs.getBoolean("enabled"));
             return user;
         }
