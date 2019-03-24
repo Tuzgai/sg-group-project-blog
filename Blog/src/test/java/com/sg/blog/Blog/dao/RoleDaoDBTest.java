@@ -62,6 +62,9 @@ public class RoleDaoDBTest {
         role = roleDao.createRole(role);
         Role fromDao = roleDao.getRoleById(role.getId());
         assertEquals(fromDao, role);
+        
+        fromDao = roleDao.getRoleByRole(role.getRole());
+        assertEquals(fromDao, role);
     }
     
     @Test
