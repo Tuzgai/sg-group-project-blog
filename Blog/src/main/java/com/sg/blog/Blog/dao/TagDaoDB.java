@@ -50,6 +50,7 @@ public class TagDaoDB implements TagDao {
     public void getTagByPost(String post) {       
             final String GET_TAG_BY_POST = "SELECT * FROM Tag";
             
+            
        // Add 
     }
 
