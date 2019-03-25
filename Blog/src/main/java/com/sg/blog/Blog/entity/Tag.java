@@ -1,12 +1,20 @@
 
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.sg.blog.Blog.entity;
 
 import java.util.Objects;
 
-
+/**
+ *
+ * @author kahin
+ */
 public class Tag {
-    String name;
+    
+   String name;
 
     public String getName() {
         return name;
@@ -15,6 +23,7 @@ public class Tag {
     public void setName(String name) {
         this.name = name;
     }
+
 
     @Override
     public int hashCode() {
@@ -41,5 +50,6 @@ public class Tag {
         return true;
     }
     
+
 
 }

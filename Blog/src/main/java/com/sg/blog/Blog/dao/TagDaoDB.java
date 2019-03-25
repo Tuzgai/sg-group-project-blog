@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class TagDaoDB implements TagDao {
+public class TagDaoDB implements TagDAO {
 
     @Autowired
     JdbcTemplate jdbc;
@@ -52,6 +52,16 @@ public class TagDaoDB implements TagDao {
             
             
        // Add 
+    }
+
+    @Override
+    public Tag createTag(Tag tag) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Tag> getTagsByPost(int postID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public static final class TagMapper implements RowMapper<Tag> {
