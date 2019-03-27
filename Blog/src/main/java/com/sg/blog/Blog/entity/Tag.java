@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "tag")
+
 public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -31,8 +33,8 @@ public class Tag {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + this.id;
-        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
 
@@ -51,10 +53,11 @@ public class Tag {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
             return false;
         }
         return true;
     }
-   
+
+
 }

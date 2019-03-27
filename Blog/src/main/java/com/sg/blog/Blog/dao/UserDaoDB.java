@@ -69,8 +69,8 @@ public class UserDaoDB implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        final String UPDATE_USER = "UPDATE user SET username = ?, password = ?,enabled = ? WHERE id = ?";
-        jdbc.update(UPDATE_USER, user.getUsername(), user.getPassword(), user.isEnabled(), user.getId());
+        final String UPDATE_USER = "UPDATE user SET username = ?, password = ?,enabled = ?, name = ?, email = ? WHERE id = ?";
+        jdbc.update(UPDATE_USER, user.getUsername(), user.getPassword(), user.isEnabled(), user.getId(), user.getFullname(), user.getEmail());
 
         final String DELETE_USER_ROLE = "DELETE FROM user_role WHERE user_id = ?";
         jdbc.update(DELETE_USER_ROLE, user.getId());
@@ -91,8 +91,8 @@ public class UserDaoDB implements UserDao {
     @Override
     @Transactional
     public User createUser(User user) {
-        final String INSERT_USER = "INSERT INTO user(username, password, enabled) VALUES(?,?,?)";
-        jdbc.update(INSERT_USER, user.getUsername(), user.getPassword(), user.isEnabled());
+        final String INSERT_USER = "INSERT INTO user(username, password, enabled, name, email) VALUES(?,?,?,?,?)";
+        jdbc.update(INSERT_USER, user.getUsername(), user.getPassword(), user.isEnabled(), user.getFullname(), user.getEmail());
         int newId = jdbc.queryForObject("select LAST_INSERT_ID()", Integer.class);
         user.setId(newId);
 
@@ -109,8 +109,10 @@ public class UserDaoDB implements UserDao {
         public User mapRow(ResultSet rs, int i) throws SQLException {
             User user = new User();
             user.setId(rs.getInt("id"));
+            user.setFullname(rs.getString("name"));
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
+            user.setEmail(rs.getString("email"));
             user.setEnabled(rs.getBoolean("enabled"));
             return user;
         }

@@ -10,8 +10,10 @@ import java.util.Set;
 public class User {
 
     private int id;
+    private String fullname;
     private String username;
     private String password;
+    private String email;
     private boolean enabled;
     private Set<Role> roles;
 
@@ -21,6 +23,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getUsername() {
@@ -39,6 +49,14 @@ public class User {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -51,18 +69,20 @@ public class User {
         return roles;
     }
 
-    public void setRoles(Set roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + this.id;
-        hash = 47 * hash + Objects.hashCode(this.username);
-        hash = 47 * hash + Objects.hashCode(this.password);
-        hash = 47 * hash + (this.enabled ? 1 : 0);
-        hash = 47 * hash + Objects.hashCode(this.roles);
+        int hash = 5;
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.fullname);
+        hash = 97 * hash + Objects.hashCode(this.username);
+        hash = 97 * hash + Objects.hashCode(this.password);
+        hash = 97 * hash + Objects.hashCode(this.email);
+        hash = 97 * hash + (this.enabled ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.roles);
         return hash;
     }
 
@@ -84,10 +104,16 @@ public class User {
         if (this.enabled != other.enabled) {
             return false;
         }
+        if (!Objects.equals(this.fullname, other.fullname)) {
+            return false;
+        }
         if (!Objects.equals(this.username, other.username)) {
             return false;
         }
         if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
             return false;
         }
         if (!Objects.equals(this.roles, other.roles)) {
@@ -96,6 +122,5 @@ public class User {
         return true;
     }
 
-    
     
 }
