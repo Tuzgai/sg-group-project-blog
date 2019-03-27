@@ -4,21 +4,37 @@
  * and open the template in the editor.
  */
 package com.sg.blog.Blog.entity;
-
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
-/**
- *
- * @author kahin
- */
+@Entity(name = "post")
 public class Post {
-   int postID;
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+@Id
+private int id;
+
+   @Column(nullable = false)
    String title;
+   @Column
    String body;
+   @Column
    LocalDate timeStamp;
+   @Column
    LocalDate startDate;
+   @Column
    LocalDate endDate;
+   @ManyToMany
+   @JoinTable(name = "postTags",
+   joinColumns = {@JoinColumn(name = "id")},
+   inverseJoinColumns = {@JoinColumn(name = "name")})
    List<Tag> tags;
 
     public List<Tag> getTags() {
@@ -47,12 +63,12 @@ public class Post {
         this.endDate = endDate;
     }
    
-    public int getPostID() {
-        return postID;
+    public int getid() {
+        return id;
     }
 
-    public void setPostID(int postID) {
-        this.postID = postID;
+    public void setid(int id) {
+        this.id = id;
     }
    
 
