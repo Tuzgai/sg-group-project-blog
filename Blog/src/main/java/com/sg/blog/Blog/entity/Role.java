@@ -1,19 +1,29 @@
 package com.sg.blog.Blog.entity;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Stuart
  */
+@Entity(name = "role")
 public class Role {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private int id;
+    
+    @Column(nullable = false)
     private String role;
 
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
