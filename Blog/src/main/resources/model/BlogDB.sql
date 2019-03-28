@@ -33,7 +33,8 @@ time time not null,
 Date date not null,
 isfeatured boolean not null,
 user_id  int not null,
-foreign key (id)
+approved boolean not null,
+foreign key (user_id)
 references User(id)
 );
 
@@ -49,5 +50,3 @@ references post(id),
 foreign key (`name`)
 references tags(`name`)
 );
-
-

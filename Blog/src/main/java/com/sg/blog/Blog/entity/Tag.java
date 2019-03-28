@@ -7,13 +7,14 @@
 package com.sg.blog.Blog.entity;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-/**
- *
- * @author kahin
- */
+@Entity(name = "tag")
 public class Tag {
-    
+   @Id
+   @Column(name = "name")
    String name;
 
     public String getName() {
@@ -24,11 +25,10 @@ public class Tag {
         this.name = name;
     }
 
-
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.name);
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -49,7 +49,7 @@ public class Tag {
         }
         return true;
     }
-    
+
 
 
 }
