@@ -9,17 +9,12 @@ package com.sg.blog.Blog.entity;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "tag")
-
 public class Tag {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private int id;
-   @Column        
+   @Id
+   @Column(name = "name")
    String name;
 
     public String getName() {
@@ -32,9 +27,8 @@ public class Tag {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.id;
-        hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -50,14 +44,12 @@ public class Tag {
             return false;
         }
         final Tag other = (Tag) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
     }
+
 
 
 }
