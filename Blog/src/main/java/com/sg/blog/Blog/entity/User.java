@@ -2,19 +2,47 @@ package com.sg.blog.Blog.entity;
 
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
  * @author Stuart
  */
+@Entity(name = "user")
 public class User {
-
+    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private int id;
+    
+    @Column(nullable = false)
     private String fullname;
+    
+    @Column
     private String username;
+    
+    @Column(nullable = false)
     private String password;
+    
+    @Column(nullable = false)
     private String email;
-    private boolean enabled;
+    
+    @Column(nullable = false)
+    private boolean enabled = false;
+    
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = {
+                @JoinColumn(name = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "name")})
     private Set<Role> roles;
 
     public int getId() {
