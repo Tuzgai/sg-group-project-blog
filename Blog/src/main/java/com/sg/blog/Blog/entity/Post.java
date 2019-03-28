@@ -34,6 +34,9 @@ public class Post {
     LocalDate startDate;
     @Column
     LocalDate endDate;
+    @Column
+    Boolean approved;
+    
     @ManyToMany
     @JoinTable(name = "postTags",
             joinColumns = {
@@ -41,6 +44,24 @@ public class Post {
             inverseJoinColumns = {
                 @JoinColumn(name = "name")})
     List<Tag> tags;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+    
+    
 
     public List<Tag> getTags() {
         return tags;
@@ -101,13 +122,14 @@ public class Post {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + this.id;
-        hash = 83 * hash + Objects.hashCode(this.title);
-        hash = 83 * hash + Objects.hashCode(this.body);
-        hash = 83 * hash + Objects.hashCode(this.timeStamp);
-        hash = 83 * hash + Objects.hashCode(this.startDate);
-        hash = 83 * hash + Objects.hashCode(this.endDate);
-        hash = 83 * hash + Objects.hashCode(this.tags);
+        hash = 89 * hash + this.id;
+        hash = 89 * hash + Objects.hashCode(this.title);
+        hash = 89 * hash + Objects.hashCode(this.body);
+        hash = 89 * hash + Objects.hashCode(this.timeStamp);
+        hash = 89 * hash + Objects.hashCode(this.startDate);
+        hash = 89 * hash + Objects.hashCode(this.endDate);
+        hash = 89 * hash + Objects.hashCode(this.approved);
+        hash = 89 * hash + Objects.hashCode(this.tags);
         return hash;
     }
 
@@ -141,10 +163,15 @@ public class Post {
         if (!Objects.equals(this.endDate, other.endDate)) {
             return false;
         }
+        if (!Objects.equals(this.approved, other.approved)) {
+            return false;
+        }
         if (!Objects.equals(this.tags, other.tags)) {
             return false;
         }
         return true;
     }
+
+    
 
 }
