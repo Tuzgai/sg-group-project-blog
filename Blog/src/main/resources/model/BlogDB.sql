@@ -38,13 +38,6 @@ foreign key (user_id)
 references User(id)
 );
 
-Create table user_post(
-user_id int not null,
-post_id int not null,
-foreign key(user_id) references user(id),
-foreign key(post_id) references post(id)
-);
-
 Create table tags(
 `name` varchar(45) primary key
 );
