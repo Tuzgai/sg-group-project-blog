@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @author Stuart
  */
 @Repository
-public interface TagRepository extends JpaRepository<Store, Integer>{
+public interface TagRepository extends JpaRepository<Tag, Integer>{
 
 }
