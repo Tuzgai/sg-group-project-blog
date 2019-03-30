@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "post")
 public class Post {
@@ -37,6 +38,10 @@ public class Post {
     LocalDate endDate;
     @Column
     Boolean approved;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
+    User user;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "postTags",
