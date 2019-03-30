@@ -1,15 +1,19 @@
 package com.sg.blog.Blog.entity;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -23,7 +27,7 @@ public class User {
     private int id;
     
     @Column(nullable = false)
-    private String fullname;
+    private String name;
     
     @Column
     private String username;
@@ -44,7 +48,10 @@ public class User {
             inverseJoinColumns = {
                 @JoinColumn(name = "name")})
     private Set<Role> roles;
-
+    
+    @OneToMany(mappedBy="user")
+    private List<Post> posts;
+    
     public int getId() {
         return id;
     }
@@ -54,11 +61,11 @@ public class User {
     }
 
     public String getFullname() {
-        return fullname;
+        return name;
     }
 
     public void setFullname(String fullname) {
-        this.fullname = fullname;
+        this.name = fullname;
     }
 
     public String getUsername() {
@@ -105,7 +112,7 @@ public class User {
     public int hashCode() {
         int hash = 5;
         hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.fullname);
+        hash = 97 * hash + Objects.hashCode(this.name);
         hash = 97 * hash + Objects.hashCode(this.username);
         hash = 97 * hash + Objects.hashCode(this.password);
         hash = 97 * hash + Objects.hashCode(this.email);
@@ -132,7 +139,7 @@ public class User {
         if (this.enabled != other.enabled) {
             return false;
         }
-        if (!Objects.equals(this.fullname, other.fullname)) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         if (!Objects.equals(this.username, other.username)) {

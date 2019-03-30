@@ -4,17 +4,17 @@ CREATE DATABASE Blog;
 
 use Blog;
 
-create table user(
-id int primary key auto_increment,
+create table `user`(
 `name` varchar(45) not null,
+id int primary key auto_increment,
 username varchar(45) not null unique,
-password varchar(100) not null,
+`password` varchar(100) not null,
 email varchar(45) not null,
 enabled boolean not null);
 
-create table role(
+create table `role`(
 id int primary key auto_increment,
-role varchar(30) not null
+`role` varchar(30) not null
 );
 
 create table user_role(
@@ -29,11 +29,13 @@ Create table post(
 id int primary key not null auto_increment,
 title varchar(100) not null,
 body varchar(15000) not null,
-time time not null,
-Date date not null,
-isfeatured boolean not null,
+`timestamp` timestamp default current_timestamp,
+startdate Date default '1000-01-01',
+enddate Date default '9999-12-31',
+featured boolean not null,
 user_id  int not null,
 approved boolean not null,
+
 foreign key (user_id)
 references User(id)
 );
