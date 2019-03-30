@@ -29,11 +29,13 @@ Create table post(
 id int primary key not null auto_increment,
 title varchar(100) not null,
 body varchar(15000) not null,
-time time not null,
-Date date not null,
-isfeatured boolean not null,
+`timestamp` timestamp default current_timestamp,
+startdate Date default '1000-01-01',
+enddate Date default '9999-12-31',
+featured boolean not null,
 user_id  int not null,
 approved boolean not null,
+
 foreign key (user_id)
 references User(id)
 );

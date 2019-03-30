@@ -28,16 +28,24 @@ public class Post {
 
     @Column(nullable = false)
     String title;
+    
     @Column
     String body;
+    
     @Column
-    LocalDate timeStamp;
+    LocalDate timestamp;
+    
     @Column
-    LocalDate startDate;
+    LocalDate startdate;
+    
     @Column
-    LocalDate endDate;
+    LocalDate enddate;
+    
     @Column
-    Boolean approved;
+    boolean featured;
+    
+    @Column
+    boolean approved;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
@@ -59,48 +67,6 @@ public class Post {
         this.id = id;
     }
 
-    public Boolean getApproved() {
-        return approved;
-    }
-
-    public void setApproved(Boolean approved) {
-        this.approved = approved;
-    }
-    
-    
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public int getid() {
-        return id;
-    }
-
-    public void setid(int id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -117,25 +83,75 @@ public class Post {
         this.body = body;
     }
 
-    public LocalDate getTimeStamp() {
-        return timeStamp;
+    public LocalDate getTimestamp() {
+        return timestamp;
     }
 
-    public void setTimeStamp(LocalDate timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimestamp(LocalDate timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public LocalDate getStartDate() {
+        return startdate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startdate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return enddate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.enddate = endDate;
+    }
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + Objects.hashCode(this.title);
-        hash = 89 * hash + Objects.hashCode(this.body);
-        hash = 89 * hash + Objects.hashCode(this.timeStamp);
-        hash = 89 * hash + Objects.hashCode(this.startDate);
-        hash = 89 * hash + Objects.hashCode(this.endDate);
-        hash = 89 * hash + Objects.hashCode(this.approved);
-        hash = 89 * hash + Objects.hashCode(this.tags);
+        hash = 61 * hash + this.id;
+        hash = 61 * hash + Objects.hashCode(this.title);
+        hash = 61 * hash + Objects.hashCode(this.body);
+        hash = 61 * hash + Objects.hashCode(this.timestamp);
+        hash = 61 * hash + Objects.hashCode(this.startdate);
+        hash = 61 * hash + Objects.hashCode(this.enddate);
+        hash = 61 * hash + (this.featured ? 1 : 0);
+        hash = 61 * hash + (this.approved ? 1 : 0);
+        hash = 61 * hash + Objects.hashCode(this.user);
+        hash = 61 * hash + Objects.hashCode(this.tags);
         return hash;
     }
 
@@ -154,22 +170,28 @@ public class Post {
         if (this.id != other.id) {
             return false;
         }
+        if (this.featured != other.featured) {
+            return false;
+        }
+        if (this.approved != other.approved) {
+            return false;
+        }
         if (!Objects.equals(this.title, other.title)) {
             return false;
         }
         if (!Objects.equals(this.body, other.body)) {
             return false;
         }
-        if (!Objects.equals(this.timeStamp, other.timeStamp)) {
+        if (!Objects.equals(this.timestamp, other.timestamp)) {
             return false;
         }
-        if (!Objects.equals(this.startDate, other.startDate)) {
+        if (!Objects.equals(this.startdate, other.startdate)) {
             return false;
         }
-        if (!Objects.equals(this.endDate, other.endDate)) {
+        if (!Objects.equals(this.enddate, other.enddate)) {
             return false;
         }
-        if (!Objects.equals(this.approved, other.approved)) {
+        if (!Objects.equals(this.user, other.user)) {
             return false;
         }
         if (!Objects.equals(this.tags, other.tags)) {
@@ -177,6 +199,7 @@ public class Post {
         }
         return true;
     }
+
 
     
 
