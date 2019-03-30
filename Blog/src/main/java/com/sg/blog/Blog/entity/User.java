@@ -24,7 +24,7 @@ public class User {
     private int id;
     
     @Column(nullable = false)
-    private String fullname;
+    private String name;
     
     @Column
     private String username;
@@ -55,11 +55,11 @@ public class User {
     }
 
     public String getFullname() {
-        return fullname;
+        return name;
     }
 
     public void setFullname(String fullname) {
-        this.fullname = fullname;
+        this.name = fullname;
     }
 
     public String getUsername() {
@@ -106,7 +106,7 @@ public class User {
     public int hashCode() {
         int hash = 5;
         hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.fullname);
+        hash = 97 * hash + Objects.hashCode(this.name);
         hash = 97 * hash + Objects.hashCode(this.username);
         hash = 97 * hash + Objects.hashCode(this.password);
         hash = 97 * hash + Objects.hashCode(this.email);
@@ -133,7 +133,7 @@ public class User {
         if (this.enabled != other.enabled) {
             return false;
         }
-        if (!Objects.equals(this.fullname, other.fullname)) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         if (!Objects.equals(this.username, other.username)) {

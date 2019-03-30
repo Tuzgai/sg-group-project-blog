@@ -4,17 +4,17 @@ CREATE DATABASE Blog;
 
 use Blog;
 
-create table user(
+create table `user`(
 id int primary key auto_increment,
 `name` varchar(45) not null,
 username varchar(45) not null unique,
-password varchar(100) not null,
+`password` varchar(100) not null,
 email varchar(45) not null,
 enabled boolean not null);
 
-create table role(
+create table `role`(
 id int primary key auto_increment,
-role varchar(30) not null
+`role` varchar(30) not null
 );
 
 create table user_role(
