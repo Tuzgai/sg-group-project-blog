@@ -1,7 +1,9 @@
 package com.sg.blog.Blog.entity;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -38,14 +41,17 @@ public class User {
     @Column(nullable = false)
     private boolean enabled = false;
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = {
                 @JoinColumn(name = "id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "name")})
     private Set<Role> roles;
-
+    
+    @OneToMany(mappedBy="user")
+    private List<Post> posts;
+    
     public int getId() {
         return id;
     }

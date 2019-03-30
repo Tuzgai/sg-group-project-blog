@@ -5,8 +5,8 @@ CREATE DATABASE Blog;
 use Blog;
 
 create table `user`(
-id int primary key auto_increment,
 `name` varchar(45) not null,
+id int primary key auto_increment,
 username varchar(45) not null unique,
 `password` varchar(100) not null,
 email varchar(45) not null,

@@ -1,11 +1,15 @@
 package com.sg.blog.Blog.entity;
 
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -20,6 +24,14 @@ public class Role {
     @Column(nullable = false)
     private String role;
 
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = {
+                @JoinColumn(name = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "name")})
+    private Set<User> users;
+    
     public int getId() {
         return id;
     }
