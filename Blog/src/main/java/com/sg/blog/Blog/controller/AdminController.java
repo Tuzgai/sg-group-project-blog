@@ -15,13 +15,12 @@ public class AdminController {
     @Autowired
     UserRepository userRepository;
     
-    @GetMapping
-    String displayUsers(Model model) {
+    @GetMapping("/admin")
+    String showAdminPage(Model model) {
         List<User> users = userRepository.findAll();
         
         model.addAttribute("users", users);
         
         return "admin";
     }
-    
 }

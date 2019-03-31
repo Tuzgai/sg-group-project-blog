@@ -52,7 +52,7 @@ public class Post {
     User user;
     
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "post_tags",
+    @JoinTable(name = "post_tag",
             joinColumns = {
                 @JoinColumn(name = "id")},
             inverseJoinColumns = {

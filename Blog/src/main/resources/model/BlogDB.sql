@@ -34,21 +34,21 @@ startdate Date default '1000-01-01',
 enddate Date default '9999-12-31',
 featured boolean not null,
 user_id  int not null,
-approved boolean not null,
+approved boolean not null default false,
 
 foreign key (user_id)
 references User(id)
 );
 
-Create table tags(
+Create table tag(
 `name` varchar(45) primary key
 );
 
-Create table post_tags(
+Create table post_tag(
 id  int not null,
 foreign key (id)
 references post(id),
 `name` varchar(45) not null,
 foreign key (`name`)
-references tags(`name`)
+references tag(`name`)
 );
