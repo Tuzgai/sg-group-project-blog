@@ -44,7 +44,7 @@ Create table tags(
 `name` varchar(45) primary key
 );
 
-Create table postTags(
+Create table post_tags(
 id  int not null,
 foreign key (id)
 references post(id),

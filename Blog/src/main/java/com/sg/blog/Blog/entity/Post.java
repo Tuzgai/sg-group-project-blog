@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "post")
 public class Post {
@@ -52,7 +53,7 @@ public class Post {
     User user;
     
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "postTags",
+    @JoinTable(name = "post_tags",
             joinColumns = {
                 @JoinColumn(name = "id")},
             inverseJoinColumns = {

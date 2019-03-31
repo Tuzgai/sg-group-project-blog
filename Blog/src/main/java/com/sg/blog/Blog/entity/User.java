@@ -3,7 +3,6 @@ package com.sg.blog.Blog.entity;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,16 +40,16 @@ public class User {
     @Column(nullable = false)
     private boolean enabled = false;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {
-                @JoinColumn(name = "id")},
+                @JoinColumn(name = "user_id")},
             inverseJoinColumns = {
-                @JoinColumn(name = "name")})
+                @JoinColumn(name = "role_id")})
     private Set<Role> roles;
     
-    @OneToMany(mappedBy="user")
-    private List<Post> posts;
+    @OneToMany(mappedBy = "user")
+    List<Post> posts;
     
     public int getId() {
         return id;
