@@ -87,14 +87,14 @@
         </a>
     </div>
 
-    <div class="card">
+    <div th:each="post : ${posts}" class="card">
         <div>
             <nav id="mainNavbar " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
-                <a href="#" class="navbar-brand">Post Title</a>
+                <a th:href="'post/' + ${post.id}" class="navbar-brand" th:text="${post.title}">Post Title</a>
                 <div class="collapse navbar-collapse" id="navLink">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Edit</a>
+                            <a th:href="'edit/' + ${post.id}" class="nav-link">Edit</a>
                         </li>
                     </ul>
                 </div>
@@ -104,36 +104,18 @@
         </div>
         <div class="card-body">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <!-- <a href="#" class="nav-link"></a> -->
-                    <p>Today, many seasoned professionals continue to ask important questions about blogging, and
-                        they're not getting adequate answers.<br> While the blog has become an incredibly important
-                        tactic for SEO, social media marketing, and earned
-                        media over the last fifteen years,
-                        <br> the confusion on what it means to blog has only increased. Common questions include:</p>
+                <li class="nav-item" th:utext="${post.body}">
             </ul>
         </div>
         <div class="card" id="input-group input-group-sm mb-4">
-            <a href="">Post By </a>
+            <span>Posted By <span th="${post.user.name}"></span></span>
             <span class="input-group-text" id="inputGroup-sizing-sm"> <a href=""></a>
                 <!-- <a href="">Post By </a><br> -->
 
                 <div class="d-flex flex-column flex-md-row justify-content-between">
-                    <a href="https:www.yahoo.com"><button href=""
-                            class="btn btn-primary btn-sm text-align-center ml-4">Follow</button></a>
-                    <a href="https:www.google.com"><button href=""
-                            class="btn btn-secondary btn-sm ml-4">Nature</button></a>
-                    <a href="https:www.w3schools.com"><button href=""
-                            class="btn btn-success btn-sm ml-4">Support</button></a>
-                    <a href="https:www.thesoftwareguild.com"><button href=""
-                            class="btn btn-primary btn-sm ml-4">#Software</button></a>
-                    <a href="https:www.google.com"><button href=""
-                            class="btn btn-secondary btn-sm ml-4">#google</button></a>
-                    <a href="https:www.w3schools.com"><button href=""
-                            class="btn btn-success btn-sm ml-4">#w3</button></a>
-                    <a href="https:www.thesoftwareguild.com"><button href=""
-                            class="btn btn-primary btn-sm ml-4">#Software</button></a>
-
+                    <ul>
+                        <li th:each="tag : ${post.tags}"><a th:href="'tags/' + ${tag}" text="${tag.name}"></a></li>
+                    </ul>
                 </div>
         </div>
 
