@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -55,7 +55,6 @@
                 </div>
             </ul>
         </div>
-    
     </nav>
 
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
@@ -101,53 +100,26 @@
             </nav>
         </div>
         <div class="card-body">
-        </div>
-        <div class="card-body">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" th:utext="${post.body}">
             </ul>
         </div>
         <div class="card" id="input-group input-group-sm mb-4">
-            <span>Posted By <span th="${post.user.name}"></span></span>
+            <span>Posted By <span th:text="${post.user.name}"></span></span>
             <span class="input-group-text" id="inputGroup-sizing-sm"> <a href=""></a>
-                <!-- <a href="">Post By </a><br> -->
-
                 <div class="d-flex flex-column flex-md-row justify-content-between">
                     <ul>
                         <li th:each="tag : ${post.tags}"><a th:href="'tags/' + ${tag}" text="${tag.name}"></a></li>
                     </ul>
                 </div>
         </div>
-
-        </span>
-        </div>
-        <div>
-            <footer id="footer " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
-                <a href="#" class="navbar-brand">Copyright © 2019 AUK Inc. <br>All rights reserved.</a>
-                <button class="navbar-toggler" data-toggle="collapse" data-target="#navLink">
-                      <span class="navbar-toggler-icon"></span>
-                  
-                  </button>
-                <div class="collapse navbar-collapse" id="navLink">
-                    <!-- <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">TechHome</a>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">Create</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">Logout</a>
-                            </li>
-                    </ul> -->
-
-                </div>
-            </footer>
-        </div>
-
-
+    </div>
+    <footer id="footer " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
+        <a href="#" class="navbar-brand">Copyright © 2019 AUK Inc. <br>All rights reserved.</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navLink">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </footer>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

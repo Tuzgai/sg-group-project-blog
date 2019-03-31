@@ -50,7 +50,7 @@ public class User {
     
     @OneToMany(mappedBy = "user")
     List<Post> posts;
-    
+
     public int getId() {
         return id;
     }
@@ -59,12 +59,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFullname() {
+    public String getName() {
         return name;
     }
 
-    public void setFullname(String fullname) {
-        this.name = fullname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {
@@ -107,16 +107,25 @@ public class User {
         this.roles = roles;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.username);
-        hash = 97 * hash + Objects.hashCode(this.password);
-        hash = 97 * hash + Objects.hashCode(this.email);
-        hash = 97 * hash + (this.enabled ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.roles);
+        int hash = 7;
+        hash = 67 * hash + this.id;
+        hash = 67 * hash + Objects.hashCode(this.name);
+        hash = 67 * hash + Objects.hashCode(this.username);
+        hash = 67 * hash + Objects.hashCode(this.password);
+        hash = 67 * hash + Objects.hashCode(this.email);
+        hash = 67 * hash + (this.enabled ? 1 : 0);
+        hash = 67 * hash + Objects.hashCode(this.roles);
+        hash = 67 * hash + Objects.hashCode(this.posts);
         return hash;
     }
 
@@ -153,8 +162,13 @@ public class User {
         if (!Objects.equals(this.roles, other.roles)) {
             return false;
         }
+        if (!Objects.equals(this.posts, other.posts)) {
+            return false;
+        }
         return true;
     }
+    
+
 
     
 }
