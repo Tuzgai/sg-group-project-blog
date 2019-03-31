@@ -5,7 +5,9 @@
  */
 package com.sg.blog.Blog.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -28,29 +30,29 @@ public class Post {
 
     @Column(nullable = false)
     String title;
-    
+
     @Column
     String body;
-    
+
     @Column
-    LocalDate timestamp;
-    
+    Timestamp timestamp = new Timestamp(new Date().getTime());
+
     @Column
-    LocalDate startdate;
-    
+    LocalDate startdate = LocalDate.of(1000, 1, 1);
+
     @Column
-    LocalDate enddate;
-    
+    LocalDate enddate = LocalDate.of(9999, 12, 31);
+
     @Column
-    boolean featured;
-    
+    boolean featured = false;
+
     @Column
-    boolean approved;
-    
+    boolean approved = false;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     User user;
-    
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "post_tag",
             joinColumns = {
@@ -83,28 +85,28 @@ public class Post {
         this.body = body;
     }
 
-    public LocalDate getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDate timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDate getStartdate() {
         return startdate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startdate = startDate;
+    public void setStartdate(LocalDate startdate) {
+        this.startdate = startdate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDate getEnddate() {
         return enddate;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.enddate = endDate;
+    public void setEnddate(LocalDate enddate) {
+        this.enddate = enddate;
     }
 
     public boolean isFeatured() {
@@ -199,8 +201,5 @@ public class Post {
         }
         return true;
     }
-
-
-    
 
 }
