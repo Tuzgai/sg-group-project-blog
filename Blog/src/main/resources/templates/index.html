@@ -30,29 +30,26 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         </button>
         <div class="collapse navbar-collapse" id="navLink">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a href="/admin" class="nav-link">Admin</a>
-                <li class="nav-item">
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a href="/post" class="nav-link">Create Post</a>
                 </li>
-                <div sec:authorize="!isAuthenticated()">
-                    <li class="nav-item">
-                        <a href="/login" class="nav-link">Login</a>
-                    </li>
-                </div>
-                <div sec:authorize="isAuthenticated()">
-                    <li class="nav-item">
-                        <form class="form-inline" method="POST" action="/logout">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                            <label for="submit" style="color:white">
-                                Hello,&nbsp;<span th:text="${#authentication.name}"></span>
-                            </label>
-                            <button class="btn btn-link" 
-                                    id="submit" 
-                                    type="submit">Logout</button>
-                        </form>
-                    </li>
-                </div>
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a href="/login" class="nav-link">Login</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <form class="form-inline" method="POST" action="/logout">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <label for="submit" style="color:white">
+                            Hello,&nbsp;<span th:text="${#authentication.name}"></span>
+                        </label>
+                        <button class="btn btn-link" 
+                                id="submit" 
+                                type="submit">Logout</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>
