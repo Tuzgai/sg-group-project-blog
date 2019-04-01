@@ -60,13 +60,57 @@
 
     <main>
         <h3>User Admin</h3>
-        <table>
-            Table of users / options goes here
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <td>Username</td>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Enabled?</td>
+                    <td>Roles</td>
+                    <td>Edit?</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user: ${users}">
+                    <td th:text="${user.username}">Username</td>
+                    <td th:text="${user.name}">Name</td>
+                    <td th:text="${user.email}">Email</td>
+                    <td th:text="${user.enabled}">Enabled?</td>
+                    <td><p th:each="role : ${user.roles}" th:text="${role.role}"></p></td>
+                    <td><a th:href="'editUser/' + ${user.id}">Edit</a></td>
+                </tr>
+            </tbody>
         </table>
 
         <h3>Post approval queue</h3>
-        <div th:each="post : ${posts}">
-            Post display goes here
+        <div th:each="post : ${posts}" class="card">
+            <nav id="mainNavbar " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
+                <a href="#" class="navbar-brand">Post Title</a>
+                <div class="collapse navbar-collapse" id="navLink">
+                    <ul class="navbar-nav ml-auto">
+                        <a th:href="'/edit/' + ${post.id}"><button type="button"
+                                class="btn btn-secondary btn-sm text-align-center ml-4">Edit</button></a>
+                        <a th:href="'/approve/' + ${post.id}"><button type="button"
+                                class="btn btn-success btn-sm text-align-center ml-4">Approve</button></a>
+                        <a th:href="'/delete/' + ${post.id}"><button type="button"
+                                class="btn btn-danger btn-sm text-align-center ml-4">Delete</button></a>
+                    </ul>
+                </div>
+            </nav>
+            <div class="card-body">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" th:utext="${post.body}">
+                </ul>
+            </div>
+            <div class="card" id="input-group input-group-sm mb-4">
+                <span>Posted By <span th:text="${post.user.name}"></span></span>
+                <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <ul class="list-inline">
+                        <li class="list-inline-item" th:each="tag : ${post.tags}"><a th:href="'tags/' + ${tag.name}" th:text="${tag.name}"></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </main>
 
