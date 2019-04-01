@@ -1,7 +1,6 @@
 package com.sg.blog.Blog.dao;
 
 import com.sg.blog.Blog.entity.Tag;
-import org.apache.catalina.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

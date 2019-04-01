@@ -1,15 +1,18 @@
 package com.sg.blog.Blog.entity;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -23,9 +26,9 @@ public class User {
     private int id;
     
     @Column(nullable = false)
-    private String fullname;
+    private String name;
     
-    @Column
+    @Column(nullable = false)
     private String username;
     
     @Column(nullable = false)
@@ -37,13 +40,16 @@ public class User {
     @Column(nullable = false)
     private boolean enabled = false;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {
-                @JoinColumn(name = "id")},
+                @JoinColumn(name = "user_id")},
             inverseJoinColumns = {
-                @JoinColumn(name = "name")})
+                @JoinColumn(name = "role_id")})
     private Set<Role> roles;
+    
+    @OneToMany(mappedBy = "user")
+    List<Post> posts;
 
     public int getId() {
         return id;
@@ -53,12 +59,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getName() {
+        return name;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {
@@ -101,16 +107,25 @@ public class User {
         this.roles = roles;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.fullname);
-        hash = 97 * hash + Objects.hashCode(this.username);
-        hash = 97 * hash + Objects.hashCode(this.password);
-        hash = 97 * hash + Objects.hashCode(this.email);
-        hash = 97 * hash + (this.enabled ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.roles);
+        int hash = 7;
+        hash = 67 * hash + this.id;
+        hash = 67 * hash + Objects.hashCode(this.name);
+        hash = 67 * hash + Objects.hashCode(this.username);
+        hash = 67 * hash + Objects.hashCode(this.password);
+        hash = 67 * hash + Objects.hashCode(this.email);
+        hash = 67 * hash + (this.enabled ? 1 : 0);
+        hash = 67 * hash + Objects.hashCode(this.roles);
+        hash = 67 * hash + Objects.hashCode(this.posts);
         return hash;
     }
 
@@ -132,7 +147,7 @@ public class User {
         if (this.enabled != other.enabled) {
             return false;
         }
-        if (!Objects.equals(this.fullname, other.fullname)) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         if (!Objects.equals(this.username, other.username)) {
@@ -147,8 +162,13 @@ public class User {
         if (!Objects.equals(this.roles, other.roles)) {
             return false;
         }
+        if (!Objects.equals(this.posts, other.posts)) {
+            return false;
+        }
         return true;
     }
+    
+
 
     
 }

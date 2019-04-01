@@ -1,11 +1,13 @@
 package com.sg.blog.Blog.entity;
 
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -20,6 +22,9 @@ public class Role {
     @Column(nullable = false)
     private String role;
 
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
+    
     public int getId() {
         return id;
     }
