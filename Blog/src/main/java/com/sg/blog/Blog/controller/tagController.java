@@ -40,7 +40,7 @@ public class tagController {
     public String tagPost(HttpServletRequest request, Model model){
       String tag =  request.getParameter("tag");
       Tag object = tagR.findById(tag).orElse(null);
-      List <Post> postsWithSameTag = postR.findByTagsContaning(object);
+      List <Post> postsWithSameTag = postR.findByTagsContaining(object);
       model.addAttribute("postsWithTheSameTag", postsWithSameTag);
       return "postsWithTheSameTag";
     }

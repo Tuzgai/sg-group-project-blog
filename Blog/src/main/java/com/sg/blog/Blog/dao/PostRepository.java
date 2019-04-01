@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface PostRepository extends JpaRepository<Post, Integer>{
     public List<Post> findByApprovedFalse();
     public List<Post> findByApprovedTrue();
-    public List<Post> findByTagsContaning(Tag tag);
+    public List<Post> findByTagsContaining(Tag tag);
 
 }
