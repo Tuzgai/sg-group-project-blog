@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,15 +37,59 @@ public class PostController {
     
     @GetMapping("/post")
     String displayPostPage(Model model) {
-        
         return "post";
     }
     
-    @PostMapping("/post")
+    @GetMapping("/edit")
+    String editPost(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+        Post post = postRepository.findById(id).orElse(new Post());
+        
+        model.addAttribute("post", post);
+        
+        return "editPost";
+    }
+    
+    @GetMapping("/delete")
+    @Transactional
+    String deletePost(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+        Post post = postRepository.findById(id).orElse(new Post());
+        
+        if(post.getId() != 0) {
+            postRepository.delete(post);
+        }
+        
+        return "redirect:/";
+    }
+    
+    @GetMapping("/approve")
+    @Transactional
+    String approvePost(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+        Post post = postRepository.findById(id).orElse(new Post());
+        
+        if(post.getId() != 0) {
+            post.setApproved(true);
+            postRepository.save(post);
+        }
+        
+        return "admin";
+    }
+            
+    
+    @PostMapping(value = {"/post", "/editPost"})
     String createPost(Post post, HttpServletRequest request) {
         // Note that this is using the spring security user, not ours
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user.getUsername();
+        
+        if(request.getParameter("id") != null) {
+            post.setId(Integer.parseInt(request.getParameter("id")));
+        }
         
         post.setUser(userRepository.findByUsername(name).get(0));
         
