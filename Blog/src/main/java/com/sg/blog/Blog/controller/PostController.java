@@ -77,7 +77,7 @@ public class PostController {
             postRepository.save(post);
         }
         
-        return "admin";
+        return "redirect:/admin";
     }
             
     
@@ -91,7 +91,7 @@ public class PostController {
             post.setId(Integer.parseInt(request.getParameter("id")));
         }
         
-        post.setUser(userRepository.findByUsername(name).get(0));
+        post.setUser(userRepository.findByUsername(name).get(0)); 
         
         if(post.getStartdate() == null) {
             post.setStartdate(LocalDate.of(1000, 1, 1));
