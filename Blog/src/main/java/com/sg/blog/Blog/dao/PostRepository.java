@@ -1,6 +1,7 @@
 package com.sg.blog.Blog.dao;
 
 import com.sg.blog.Blog.entity.Post;
+import com.sg.blog.Blog.entity.Tag;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,5 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface PostRepository extends JpaRepository<Post, Integer>{
     public List<Post> findByApprovedFalse();
     public List<Post> findByApprovedTrue();
+    public List<Post> findByTagsContaning(Tag tag);
 
 }
