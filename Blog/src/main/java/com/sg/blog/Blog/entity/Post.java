@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name = "post")
 public class Post {
@@ -38,9 +39,11 @@ public class Post {
     Timestamp timestamp = new Timestamp(new Date().getTime());
 
     @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate startdate = LocalDate.of(1000, 1, 1);
 
     @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate enddate = LocalDate.of(9999, 12, 31);
 
     @Column

@@ -86,7 +86,7 @@
         <h3>Post approval queue</h3>
         <div th:each="post : ${posts}" class="card">
             <nav id="mainNavbar " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
-                <a th:href="'post/' + ${post.id}" class="navbar-brand">Post Title</a>
+                <a th:href="'post/' + ${post.id}" class="navbar-brand" th:text="${post.title}">Post Title</a>
                 <div class="collapse navbar-collapse" id="navLink">
                     <ul class="navbar-nav ml-auto">
                         <a th:href="@{/edit(id=${post.id})}"><button type="button"
