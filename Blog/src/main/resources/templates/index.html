@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="blog.css">
 
 </head>
@@ -13,7 +11,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     body {
         background-color: indigo;
     }
-
+    
     h1 {
         text-align: center;
         color: white;
@@ -45,9 +43,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                         <label for="submit" style="color:white">
                             Hello,&nbsp;<span th:text="${#authentication.name}"></span>
                         </label>
-                        <button class="btn btn-link" 
-                                id="submit" 
-                                type="submit">Logout</button>
+                        <button class="btn btn-link" id="submit" type="submit">Logout</button>
                     </form>
                 </li>
             </ul>
@@ -63,8 +59,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             </div>
             <div class="carousel-item">
                 <a href="http://www.stu.systems/post/13">
-                    <img src="Image/mobile-phone-1875813_640.jpg" width="30" height="400" class="d-inline-block w-100"
-                        alt="...">
+                    <img src="Image/mobile-phone-1875813_640.jpg" width="30" height="400" class="d-inline-block w-100" alt="...">
                 </a>
             </div>
             <div class="carousel-item">
@@ -103,7 +98,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <span>Posted By <span th:text="${post.user.name}"></span></span>
             <div class="d-flex flex-column flex-md-row justify-content-between">
                 <ul class="list-inline">
-                    <li class="list-inline-item" th:each="tag : ${post.tags}"><a th:href="'tags/' + ${tag.name}" th:text="${tag.name}"></a></li>
+                    <li class="list-inline-item" th:each="tag : ${post.tags}">
+                        <a th:href="'tags/' + ${tag.name}" th:text="${tag.name}"></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -116,14 +113,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     </footer>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </html>
