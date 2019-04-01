@@ -46,9 +46,13 @@ Create table tag(
 
 Create table post_tag(
 id  int not null,
+`name` varchar(45) not null,
+
 foreign key (id)
 references post(id),
-`name` varchar(45) not null,
+
 foreign key (`name`)
 references tag(`name`)
 );
+
+select * from post_tag;

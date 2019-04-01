@@ -102,8 +102,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         <div class="card" id="input-group input-group-sm mb-4">
             <span>Posted By <span th:text="${post.user.name}"></span></span>
             <div class="d-flex flex-column flex-md-row justify-content-between">
-                <ul>
-                    <li th:each="tag : ${post.tags}"><a th:href="'tags/' + ${tag}" text="${tag.name}"></a></li>
+                <ul class="list-inline">
+                    <li class="list-inline-item" th:each="tag : ${post.tags}"><a th:href="'tags/' + ${tag}" th:text="${tag.name}"></a></li>
                 </ul>
             </div>
         </div>
