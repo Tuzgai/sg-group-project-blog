@@ -1,49 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="blog.css">
-    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=o2xp82bqxprpd8r2rfavh4hfvs8exznpqqpkoxlp3mktxxti"></script>
+    <script
+        src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=o2xp82bqxprpd8r2rfavh4hfvs8exznpqqpkoxlp3mktxxti"></script>
     <script>
         tinymce.init({
-            selector: '#body',
-            height: 500,
-            plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste imagetools wordcount"
-            ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-            content_css: [
-                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-                '//www.tiny.cloud/css/codepen.min.css'
-            ]
+            selector: '#body'
         });
     </script>
 </head>
 <style>
     body {
-        background-color: lightcyan;
-    }
-    
-    label {
-        color: black;
-    }
-    
-    h1 {
         background-color: indigo;
-        text-align: center;
+    }
+
+    label {
         color: white;
-        margin: 0px;
     }
-    
-    .container {
-        margin-top: 40px;
-    }
-    
-    .hello {
+
+    h1 {
+        text-align: center;
         color: white;
     }
 </style>
@@ -60,31 +42,33 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a href="/admin" class="nav-link">Admin</a>
-                    <li class="nav-item">
-                        <a href="/post" class="nav-link">Create Post</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/login" class="nav-link">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <div sec:authorize="isAuthenticated()">
-                            <form class="form-inline" method="POST" action="/logout">
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                <label class="hello" for="submit">
+                <li class="nav-item">
+                    <a href="/post" class="nav-link">Create Post</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/login" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <div sec:authorize="isAuthenticated()">
+                        <form class="form-inline" method="POST" action="/logout">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <label for="submit">
                                 Hello : <span th:text="${#authentication.name}">
                                       </span>&nbsp;&nbsp;&nbsp;|
                             </label>
-                                <button class="btn btn-link" id="submit" type="submit">Logout</button>
-                            </form>
-                        </div>
-                    </li>
+                            <button class="btn btn-link" 
+                                  id="submit" 
+                                  type="submit">Logout</button>
+                        </form>
+                    </div>
+                </li>
             </ul>
 
         </div>
     </nav>
 
     <main class="container">
-        <h2 style="color:black">Enter your post:</h2>
+        <h2 style="color:white">Enter your post:</h2>
         <form class="form" method="POST">
             <div class="form-group">
                 <label for="startdate">Start display date(default: active):</label>
@@ -110,7 +94,9 @@
                 <label for="tagString">Enter comma-separated tags</label>
                 <input class="form-control" type="text" name="tagString" id="tagString" placeholder="Tags">
             </div>
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden"                        
+	            th:name="${_csrf.parameterName}"
+	            th:value="${_csrf.token}"/>
             <button class="btn btn-primary" type="submit">Submit For Approval</button>
         </form>
     </main>

@@ -88,10 +88,15 @@
                     <td th:text="${user.name}">Name</td>
                     <td th:text="${user.email}">Email</td>
                     <td th:text="${user.enabled}">Enabled?</td>
+<<<<<<< HEAD
                     <td>
                         <p th:each="role : ${user.roles}" th:text="${role.role}"></p>
                     </td>
                     <td><a th:href="'editUser/' + ${user.id}">Edit</a></td>
+=======
+                    <td><p th:each="role : ${user.roles}" th:text="${role.role}"></p></td>
+                    <td><a th:href="@{/editUser(id=${user.id})}">Edit</a></td>
+>>>>>>> d68f55e10faef065720d7dfd490b67a187d9b9ba
                 </tr>
             </tbody>
         </table>
@@ -99,14 +104,14 @@
         <h3>Post approval queue</h3>
         <div th:each="post : ${posts}" class="card">
             <nav id="mainNavbar " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
-                <a href="#" class="navbar-brand">Post Title</a>
+                <a th:href="'post/' + ${post.id}" class="navbar-brand" th:text="${post.title}">Post Title</a>
                 <div class="collapse navbar-collapse" id="navLink">
                     <ul class="navbar-nav ml-auto">
-                        <a th:href="'/edit/' + ${post.id}"><button type="button"
+                        <a th:href="@{/edit(id=${post.id})}"><button type="button"
                                 class="btn btn-secondary btn-sm text-align-center ml-4">Edit</button></a>
-                        <a th:href="'/approve/' + ${post.id}"><button type="button"
+                        <a th:href="@{/approve(id=${post.id})}"><button type="button"
                                 class="btn btn-success btn-sm text-align-center ml-4">Approve</button></a>
-                        <a th:href="'/delete/' + ${post.id}"><button type="button"
+                        <a th:href="@{/delete(id=${post.id})}"><button type="button"
                                 class="btn btn-danger btn-sm text-align-center ml-4">Delete</button></a>
                     </ul>
                 </div>

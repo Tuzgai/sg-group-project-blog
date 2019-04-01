@@ -2,6 +2,7 @@ package com.sg.blog.Blog.controller;
 
 import com.sg.blog.Blog.dao.PostRepository;
 import com.sg.blog.Blog.entity.Post;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,9 +23,12 @@ public class IndexController {
     
     @GetMapping("/")
     public String showIndex(Model model) {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findByApprovedTrue();
         
         posts = posts.stream()
+                // This is a bit of a cludge to avoid a more complex DB query
+                .filter(p -> 
+                        p.getStartdate().isBefore(LocalDate.now()) && p.getEnddate().isAfter(LocalDate.now()))
                 .sorted(Comparator.comparing(Post::getTimestamp)
                         .reversed())
                 .collect(Collectors.toList());
