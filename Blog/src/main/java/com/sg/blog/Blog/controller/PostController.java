@@ -62,7 +62,7 @@ public class PostController {
             postRepository.delete(post);
         }
         
-        return "redirect:/";
+        return "redirect:/admin";
     }
     
     @GetMapping("/approve")
