@@ -6,8 +6,8 @@ import com.sg.blog.Blog.dao.UserRepository;
 import com.sg.blog.Blog.entity.Post;
 import com.sg.blog.Blog.entity.Tag;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,8 +45,14 @@ public class PostController {
         int id = Integer.parseInt(request.getParameter("id"));
         
         Post post = postRepository.findById(id).orElse(new Post());
+        String tags = "";
+        
+        for(Tag tag : post.getTags()) {
+            tags = tags + tag.getName() + ", ";
+        }
         
         model.addAttribute("post", post);
+        model.addAttribute("tags", tags);
         
         return "editPost";
     }
@@ -81,7 +87,7 @@ public class PostController {
     }
             
     
-    @PostMapping(value = {"/post", "/editPost"})
+    @PostMapping(value = {"/post", "/edit"})
     String createPost(Post post, HttpServletRequest request) {
         // Note that this is using the spring security user, not ours
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -105,7 +111,7 @@ public class PostController {
         String tagString = request.getParameter("tagString");
         tagString = tagString.replace(" ", "");
         String [] tagArr = tagString.split(",");
-        List<Tag> tags = new ArrayList<>();
+        Set<Tag> tags = new HashSet<>();
         for(String tagName : tagArr) {
             Tag tag = new Tag();
             tag.setName(tagName);
