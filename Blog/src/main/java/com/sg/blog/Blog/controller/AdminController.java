@@ -1,44 +1,128 @@
 package com.sg.blog.Blog.controller;
 
 import com.sg.blog.Blog.dao.PostRepository;
+import com.sg.blog.Blog.dao.RoleRepository;
 import com.sg.blog.Blog.dao.UserRepository;
 import com.sg.blog.Blog.entity.Post;
+import com.sg.blog.Blog.entity.Role;
 import com.sg.blog.Blog.entity.User;
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
  * @author Stuart
  */
-
 @Controller
 public class AdminController {
+
     @Autowired
     UserRepository userRepository;
-    
+
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
     
     @GetMapping("/admin")
     String showAdminPage(Model model) {
         List<User> users = userRepository.findAll();
         List<Post> posts = postRepository.findByApprovedFalse();
-        
+
         posts = posts.stream()
                 .sorted(Comparator.comparing(Post::getTimestamp)
                         .reversed())
                 .collect(Collectors.toList());
-        
+
         model.addAttribute("users", users);
         model.addAttribute("posts", posts);
-        
+
         return "admin";
     }
+
+    @GetMapping("/editUser")
+    String showEditPage(HttpServletRequest request, Model model, Integer error) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+        User user = userRepository.findById(id).orElse(new User());
+        List<Role> roles = roleRepository.findAll();
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
+        
+        if(error != null) {
+            if(error == 1) {
+                model.addAttribute("error", "Passwords did not match, password was not updated.");
+            }
+        }
+        
+        return "editUser";
+    }
+
+    @PostMapping("/editUser")
+    String editUser(User user, String passwordSubmission, String confirmPassword) {
+        
+       if(passwordSubmission.equals(confirmPassword)) {
+           user.setPassword(encoder.encode(passwordSubmission));
+           return "redirect:/admin";
+       }
+        
+       return "redirect:/editUser?id=" + user.getId() + "&error=1";
+    }
+    
+    @GetMapping("/deleteUserAndPosts")
+    @Transactional
+    String deleteUserAndPosts(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        User user = userRepository.findById(id).orElse(new User());
+
+        List<Post> posts = postRepository.findByUser(user);
+
+        for (Post post : posts) {
+            postRepository.delete(post);
+        }
+
+        userRepository.delete(user);
+
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/deleteUserAndUpdatePosts")
+    @Transactional
+    String deleteUserAndUpdatePosts(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        User user = userRepository.findById(id).orElse(new User());
+
+        List<Post> posts = postRepository.findByUser(user);
+
+        User blankUser = new User();
+
+        // Update db script to make first user 'user unknown'
+        blankUser.setId(1);
+
+        for (Post post : posts) {
+            post.setUser(user);
+            postRepository.save(post);
+        }
+
+        userRepository.delete(user);
+
+        return "redirect:/admin";
+    }
+
 }
