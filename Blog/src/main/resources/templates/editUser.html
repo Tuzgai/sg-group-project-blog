@@ -49,15 +49,15 @@
         <form class="form" method="POST">
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input class="form-control" type="text" name="name" id="name" placeholder="Name" th:value="user.name">
+                <input class="form-control" type="text" name="name" id="name" placeholder="Name" th:value="${user.name}">
             </div>
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input class="form-control" type="text" name="username" id="username" placeholder="Username" th:value="user.username">
+                <input class="form-control" type="text" name="username" id="username" placeholder="Username" th:value="${user.username}">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input class="form-control" type="email" name="email" id="email" placeholder="your@email.com" th:value="user.email">
+                <input class="form-control" type="email" name="email" id="email" placeholder="your@email.com" th:value="${user.email}">
             </div>
             <div class="form-group">
                 <label for="passwordSubmission">New Password:</label>
@@ -72,7 +72,7 @@
                     <option 
                         th:each="role : ${roles}" 
                         th:value="${role.id}" 
-                        th:text="${role.name}"
+                        th:text="${role.role}"
                         th:selected=${user.roles.contains(role)}>
                     </option>
                 </select>
