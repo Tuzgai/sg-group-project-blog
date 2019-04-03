@@ -120,7 +120,7 @@
                 <div class="d-flex flex-column flex-md-row justify-content-between">
                     <ul class="list-inline">
                         <li class="list-inline-item" th:each="tag : ${post.tags}">
-                            <a th:href="'tags/' + ${tag.name}" th:text="${tag.name}"></a>
+                            <a th:href="@{/tags(tag=${tag.name})}" th:text="${tag.name}"></a>
                         </li>
                     </ul>
                 </div>
