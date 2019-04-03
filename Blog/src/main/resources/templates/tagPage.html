@@ -16,10 +16,13 @@
         text-align: center;
         color: white;
     }
+    h2{
+      background-color: #B3B6B7;
+    }
 </style>
 
 <body>
-    <h1>Posts With <span th:text="${selectedTag}"></span></h1>
+    <h1>Blog</h1>
     <div>
         <nav id="mainNavbar " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
             <a href="/" class="navbar-brand">Home</a>
@@ -56,7 +59,7 @@
     </div>
     </nav>
     </div>
-
+<h2>Posts With <span th:text="${selectedTag.name}"></span></h2>
 
     <div class="card">
         <div>
@@ -178,4 +181,3 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </html>
-

@@ -36,7 +36,7 @@ public class tagController {
     @Autowired
     UserRepository userR;
     
-    @GetMapping("/AllPostsWithThisTag")
+    @GetMapping("/tags")
     public String tagPost(HttpServletRequest request, Model model){
       String tag =  request.getParameter("tag");
       Tag object = tagR.findById(tag).orElse(null);
