@@ -89,10 +89,6 @@
                     <td th:text="${user.email}">Email</td>
                     <td th:text="${user.enabled}">Enabled?</td>
 
-                    <td>
-                        <p th:each="role : ${user.roles}" th:text="${role.role}"></p>
-                    </td>
-                    <td><a th:href="'editUser/' + ${user.id}">Edit</a></td>
                     <td><p th:each="role : ${user.roles}" th:text="${role.role}"></p></td>
                     <td><a th:href="@{/editUser(id=${user.id})}">Edit</a></td>
                 </tr>

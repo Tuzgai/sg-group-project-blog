@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -62,7 +63,7 @@ public class Post {
                 @JoinColumn(name = "id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "name")})
-    List<Tag> tags;
+    Set<Tag> tags;
 
     public int getId() {
         return id;
@@ -136,11 +137,11 @@ public class Post {
         this.user = user;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 
