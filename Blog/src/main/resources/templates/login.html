@@ -24,7 +24,9 @@
     }
     
     .pass {
+        text-decoration-color: black;
         margin-top: 40px;
+      
     }
     
     h3 {
@@ -68,7 +70,7 @@
     </nav>
 
     <main class="pass">
-        <h3 th:if="${#request.getParameter('login_error') == '1'}" style="color: white">
+        <h3 th:if="${#request.getParameter('login_error') == '1'}" style="color: black">
             Wrong id or password!</h3>
 
         <form class="form-horizontal col-sm-6 main-form" role="form" method="post" action="login">

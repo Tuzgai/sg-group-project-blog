@@ -3,12 +3,21 @@
 
 <head>
     <meta charset="utf-8">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/blog.css">
 
 </head>
 <style>
+  body {
+        background-color: indigo;
+    }
+    
+    h1 {
+        text-align: center;
+        color: white;
+    }
 
 </style>
 
@@ -93,7 +102,7 @@
             <div class="d-flex flex-column flex-md-row justify-content-between">
                 <ul class="list-inline">
                     <li class="list-inline-item" th:each="tag : ${post.tags}">
-                        <a th:href="'tags/' + ${tag.name}" th:text="${tag.name}"></a>
+                        <a th:href="@{/tags(tag=${tag.name})}" th:text="${tag.name}"></a>
                     </li>
                 </ul>
             </div>

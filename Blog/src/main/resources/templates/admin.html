@@ -88,6 +88,7 @@
                     <td th:text="${user.name}">Name</td>
                     <td th:text="${user.email}">Email</td>
                     <td th:text="${user.enabled}">Enabled?</td>
+
                     <td><p th:each="role : ${user.roles}" th:text="${role.role}"></p></td>
                     <td><a th:href="@{/editUser(id=${user.id})}">Edit</a></td>
                 </tr>
@@ -119,7 +120,7 @@
                 <div class="d-flex flex-column flex-md-row justify-content-between">
                     <ul class="list-inline">
                         <li class="list-inline-item" th:each="tag : ${post.tags}">
-                            <a th:href="'tags/' + ${tag.name}" th:text="${tag.name}"></a>
+                            <a th:href="@{/tags(tag=${tag.name})}" th:text="${tag.name}"></a>
                         </li>
                     </ul>
                 </div>
