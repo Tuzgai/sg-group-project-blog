@@ -88,15 +88,13 @@
                     <td th:text="${user.name}">Name</td>
                     <td th:text="${user.email}">Email</td>
                     <td th:text="${user.enabled}">Enabled?</td>
-<<<<<<< HEAD
+
                     <td>
                         <p th:each="role : ${user.roles}" th:text="${role.role}"></p>
                     </td>
                     <td><a th:href="'editUser/' + ${user.id}">Edit</a></td>
-=======
                     <td><p th:each="role : ${user.roles}" th:text="${role.role}"></p></td>
                     <td><a th:href="@{/editUser(id=${user.id})}">Edit</a></td>
->>>>>>> d68f55e10faef065720d7dfd490b67a187d9b9ba
                 </tr>
             </tbody>
         </table>
