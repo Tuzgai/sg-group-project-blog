@@ -6,6 +6,7 @@ import com.sg.blog.Blog.dao.UserRepository;
 import com.sg.blog.Blog.entity.Post;
 import com.sg.blog.Blog.entity.Role;
 import com.sg.blog.Blog.entity.User;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -52,8 +53,19 @@ public class AdminController {
         // Don't display our 'user deleted' placeholder.
         users.remove(0);
         
+        List<Post> scheduledPosts = postRepository.findByApprovedTrue();
+        
+        scheduledPosts = scheduledPosts.stream()
+                // This is a bit of a cludge to avoid a more complex DB query
+                .filter(p -> 
+                        p.getStartdate().isAfter(LocalDate.now()))
+                .sorted(Comparator.comparing(Post::getTimestamp)
+                        .reversed())
+                .collect(Collectors.toList());
+        
         model.addAttribute("users", users);
         model.addAttribute("posts", posts);
+        model.addAttribute("scheduledPosts", scheduledPosts);
 
         return "admin";
     }
