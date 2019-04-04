@@ -16,6 +16,6 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
     public List<Post> findByApprovedFalse();
     public List<Post> findByApprovedTrue();
     public List<Post> findByTagsContaining(Tag tag);
-    public List<Post> findByTagsContainingOrderByTimestamp(Tag tag);
+    public List<Post> findByApprovedTrueAndTagsContainingOrderByTimestamp(Tag tag);
     public List<Post> findByUser(User user);
 }

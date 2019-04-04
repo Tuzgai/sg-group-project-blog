@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="blog.css">
 
 </head>
@@ -16,9 +17,10 @@
         text-align: center;
         color: white;
     }
-    h2{
-      color: lightblue;
-      margin-top: 10px;
+
+    h2 {
+        color: lightblue;
+        margin-top: 10px;
 
     }
 </style>
@@ -27,27 +29,27 @@
     <h1>Blog</h1>
     <div>
         <nav id="mainNavbar " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
-                <a href="/" class="navbar-brand">Home</a>
-                <button class="navbar-toggler" data-toggle="collapse" data-target="#navLink">
-                    <span class="navbar-toggler-icon"></span>
-        
-                </button>
-                <div class="collapse navbar-collapse" id="navLink">
-                    <ul class="navbar-nav ml-auto">
-                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-                            <a href="/admin" class="nav-link">Admin</a>
-                        </li>
-                        <li sec:authorize="isAuthenticated()" class="nav-item">
-                            <a href="/post" class="nav-link">Create Post</a>
-                        </li>
-                        <li sec:authorize="!isAuthenticated()" class="nav-item">
-                            <a href="/login" class="nav-link">Login</a>
-                        </li>
-                        <li sec:authorize="isAuthenticated()" class="nav-item">
-                            <form class="form-inline" method="POST" action="/logout">
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                <label for="submit" style="color:white">
-                                    Hello,&nbsp;<span th:text="${#authentication.name}"></span>
+            <a href="/" class="navbar-brand">Home</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navLink">
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+            <div class="collapse navbar-collapse" id="navLink">
+                <ul class="navbar-nav ml-auto">
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                        <a href="/admin" class="nav-link">Admin</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a href="/post" class="nav-link">Create Post</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a href="/login" class="nav-link">Login</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <form class="form-inline" method="POST" action="/logout">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <label for="submit" style="color:white">
+                                Hello,&nbsp;<span th:text="${#authentication.name}"></span>
                                 </label>
                                 <button class="btn btn-link" id="submit" type="submit">Logout</button>
                             </form>

@@ -120,6 +120,35 @@
                 </div>
             </div>
         </div>
+        <h3>Scheduled posts queue</h3>
+        <div th:each="post : ${scheduledPosts}" class="card">
+            <nav id="mainNavbar " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
+                <a th:href="'post/' + ${post.id}" class="navbar-brand" th:text="${post.title}">Post Title</a>
+                <div class="collapse navbar-collapse" id="navLink">
+                    <ul class="navbar-nav ml-auto">
+                        <a th:href="@{/edit(id=${post.id})}"><button type="button"
+                                class="btn btn-secondary btn-sm text-align-center ml-4">Edit</button></a>
+                        <a th:href="@{/delete(id=${post.id})}"><button type="button"
+                                class="btn btn-danger btn-sm text-align-center ml-4">Delete</button></a>
+                    </ul>
+                </div>
+            </nav>
+            <div class="card-body">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" th:utext="${post.body}">
+                </ul>
+            </div>
+            <div class="card" id="input-group input-group-sm mb-4">
+                <span>Posted By <span th:text="${post.user.name}"></span></span>
+                <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <ul class="list-inline">
+                        <li class="list-inline-item" th:each="tag : ${post.tags}">
+                            <a th:href="@{/tags(tag=${tag.name})}" th:text="${tag.name}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </main>
 
 
