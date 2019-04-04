@@ -1,9 +1,10 @@
 body {
-    background-color: red;
+    background-color: lightcyan;
 }
 
 hi {
-    color: yellow;
+    background-color: indigo;
+    text-align: center;
 }
 #mainNavbar{
     background-color: blue;
