@@ -40,7 +40,7 @@ public class tagController {
     public String tagPost(HttpServletRequest request, Model model){
       String tag =  request.getParameter("tag");
       Tag object = tagR.findById(tag).orElse(null);
-      List <Post> postsWithSameTag = postR.findByTagsContainingOrderByTimestamp(object);
+      List <Post> postsWithSameTag = postR.findByApprovedTrueAndTagsContainingOrderByTimestamp(object);
       model.addAttribute("posts", postsWithSameTag);
       model.addAttribute("selectedTag",tag);
       return "tagPage";
