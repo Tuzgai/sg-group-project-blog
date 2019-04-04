@@ -5,6 +5,7 @@ body {
 hi {
     background-color: indigo;
     text-align: center;
+    margin: 0px;
 }
 #mainNavbar{
     background-color: blue;
