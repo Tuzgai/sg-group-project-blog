@@ -41,7 +41,7 @@ public class tagController {
       String tag =  request.getParameter("tag");
       Tag object = tagR.findById(tag).orElse(null);
       List <Post> postsWithSameTag = postR.findByTagsContainingOrderByTimestamp(object);
-      model.addAttribute("postsWithTheSameTag", postsWithSameTag);
+      model.addAttribute("posts", postsWithSameTag);
       model.addAttribute("selectedTag",tag);
       return "tagPage";
     }
