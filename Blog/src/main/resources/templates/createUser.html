@@ -6,49 +6,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="blog.css">
-    <script
-        src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=o2xp82bqxprpd8r2rfavh4hfvs8exznpqqpkoxlp3mktxxti"></script>
-    <script>
-        tinymce.init({
-            selector: '#body',
-            height: 500,
-            plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste imagetools wordcount"
-            ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-            content_css: [
-                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-                '//www.tiny.cloud/css/codepen.min.css'
-            ]
-        });
-    </script>
+    <link rel="stylesheet" href="/css/blog.css">
+
 </head>
 <style>
-    body {
-        background-color: lightcyan;
-    }
 
-    label {
-        color: black;
-    }
-
-    h1 {
-        background-color: indigo;
-        text-align: center;
-        color: white;
-        margin: 0px;
-    }
-
-    .container {
-        margin-top: 40px;
-    }
-
-    .hello {
-        color: white;
-    }
 </style>
 
 <body>
@@ -84,39 +46,56 @@
         </nav>
 
     <main class="container">
-        <h2 style="color:black">Edit your post:</h2>
+        <h2 style="color:black">User Details</h2>
         <form class="form" method="POST">
             <div class="form-group">
-                <label for="startdate">Start display date(default: active):</label>
-                <input class="form-control" type="date" name="startdate" id="startdate" th:value="${post.startdate}">
+                <label for="name">Name:</label>
+                <input class="form-control" type="text" name="name" id="name" placeholder="Name">
             </div>
             <div class="form-group">
-                <label for="enddate">End display date(default: display forever):</label>
-                <input class="form-control" type="date" name="enddate" id="enddate" th:value="${post.enddate}">
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="featured" id="featured">
-                <label for="featured" class="form-check-label">Add to featured post carousel?</label>
+                <label for="username">Username:</label>
+                <input class="form-control" type="text" name="username" id="username" placeholder="Username">
             </div>
             <div class="form-group">
-                <label for="title">Post Title</label>
-                <input class="form-control" type="text" name="title" id="title" placeholder="Title" th:value="${post.title}" required>
+                <label for="email">Email:</label>
+                <input class="form-control" type="email" name="email" id="email" placeholder="your@email.com">
             </div>
             <div class="form-group">
-                <label for="body">Post Body</label>
-                <textarea class="form-control" name="body" id="body" placeholder="Post Body" th:text="${post.body}" rows=30></textarea>
+                <label for="passwordSubmission">New Password:</label>
+                <input class="form-control" type="password" name="passwordSubmission" id="passwordSubmission">
             </div>
             <div class="form-group">
-                <label for="tagString">Enter comma-separated tags</label>
-                <input class="form-control" type="text" name="tagString" id="tagString" placeholder="Tags" th:value="${tags}">
+                <label for="confirmPassword">Confirm New Password:</label>
+                <input class="form-control" type="password" name="confirmPassword" id="confirmPassword">
             </div>
-            <input type="hidden" name="id" id="id" th:value="${post.id}">
-            <input type="hidden" name="approved" id="approved" th:value="${post.approved}">
-            <input type="hidden" name="featured" id="featured" th:value="${post.featured}">
+            <div th:if="${error}">
+                <p class="alert alert-danger"
+                    th:text="${error}">
+                </p>
+            </div>
+            <div class="form-group">
+                <select name="role" multiple>
+                    <option 
+                        th:each="role : ${roles}" 
+                        th:value="${role.id}" 
+                        th:text="${role.role}"></option>
+                    </option>
+                </select>
+            </div>
+
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <button class="btn btn-primary" type="submit">Edit Post</button>
+            <div class="d-flex flex-row mb-1">
+                <button class="btn btn-primary" type="submit">Submit User</button>
+            </div>
         </form>
     </main>
+
+    <footer id="footer" class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
+        <a href="#" class="navbar-brand">Copyright © 2019 AUK Inc. <br>All rights reserved.</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navLink">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </footer>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

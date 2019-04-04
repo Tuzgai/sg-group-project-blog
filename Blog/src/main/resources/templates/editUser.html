@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -15,34 +16,34 @@
 <body>
     <h1>Blog</h1>
     <nav id="mainNavbar " class="navbar bg-dark navbar-expand-sm" aria-label="Toggle navigation">
-        <a href="/" class="navbar-brand">Home</a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navLink">
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-        <div class="collapse navbar-collapse" id="navLink">
-            <ul class="navbar-nav ml-auto">
-                <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a href="/admin" class="nav-link">Admin</a>
-                </li>
-                <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a href="/post" class="nav-link">Create Post</a>
-                </li>
-                <li sec:authorize="!isAuthenticated()" class="nav-item">
-                    <a href="/login" class="nav-link">Login</a>
-                </li>
-                <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <form class="form-inline" method="POST" action="/logout">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                        <label for="submit" style="color:white">
-                            Hello,&nbsp;<span th:text="${#authentication.name}"></span>
-                        </label>
-                        <button class="btn btn-link" id="submit" type="submit">Logout</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </nav>
+            <a href="/" class="navbar-brand">Home</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navLink">
+                <span class="navbar-toggler-icon"></span>
+    
+            </button>
+            <div class="collapse navbar-collapse" id="navLink">
+                <ul class="navbar-nav ml-auto">
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                        <a href="/admin" class="nav-link">Admin</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a href="/post" class="nav-link">Create Post</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a href="/login" class="nav-link">Login</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <form class="form-inline" method="POST" action="/logout">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <label for="submit" style="color:white">
+                                Hello,&nbsp;<span th:text="${#authentication.name}"></span>
+                            </label>
+                            <button class="btn btn-link" id="submit" type="submit">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
     <main class="container">
         <h2 style="color:black">User Details</h2>
@@ -67,8 +68,13 @@
                 <label for="confirmPassword">Confirm New Password:</label>
                 <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password">
             </div>
+            <div th:if="${error}">
+                <p class="alert alert-danger"
+                    th:text="${error}">
+                </p>
+            </div>
             <div class="form-group">
-                <select multiple>
+                <select name="role" multiple>
                     <option 
                         th:each="role : ${roles}" 
                         th:value="${role.id}" 
@@ -80,9 +86,13 @@
             <input type="hidden" name="id" th:value="${user.id}">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <div class="d-flex flex-row mb-1">
-                <button class="btn btn-primary" type="submit">Submit For Approval</button>
-                <button class="btn btn-danger ml-auto mr-1" type="button">Delete User, Do Not Delete Posts</button>
-                <button class="btn btn-danger" type="button">Delete User and Posts</button>
+                <button class="btn btn-primary" type="submit">Submit User</button>
+                <a class="ml-auto mr-1" th:href="@{/deleteUserAndUpdatePosts(id=${user.id})}">
+                    <button class="btn btn-danger" type="button">Delete User, Do Not Delete Posts</button>
+                </a>
+                <a th:href="@{/deleteUserAndPosts(id=${user.id})}">
+                    <button class="btn btn-danger" type="button">Delete User and Posts</button>
+                </a>
             </div>
         </form>
     </main>
