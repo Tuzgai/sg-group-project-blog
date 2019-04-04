@@ -49,20 +49,20 @@ public class AdminController {
                 .sorted(Comparator.comparing(Post::getTimestamp)
                         .reversed())
                 .collect(Collectors.toList());
-        
+
         // Don't display our 'user deleted' placeholder.
         users.remove(0);
-        
+
         List<Post> scheduledPosts = postRepository.findByApprovedTrue();
-        
+
         scheduledPosts = scheduledPosts.stream()
                 // This is a bit of a cludge to avoid a more complex DB query
-                .filter(p -> 
-                        p.getStartdate().isAfter(LocalDate.now()))
+                .filter(p
+                        -> p.getStartdate().isAfter(LocalDate.now()))
                 .sorted(Comparator.comparing(Post::getTimestamp)
                         .reversed())
                 .collect(Collectors.toList());
-        
+
         model.addAttribute("users", users);
         model.addAttribute("posts", posts);
         model.addAttribute("scheduledPosts", scheduledPosts);
@@ -114,7 +114,7 @@ public class AdminController {
         user.setPassword(encoder.encode(passwordSubmission));
 
         String[] roleStrings = request.getParameterValues("role");
-        
+
         if (roleStrings.length > 0) {
             Set<Role> roles = Arrays.stream(roleStrings)
                     .map(v -> roleRepository.findById(Integer.parseInt(v)).orElse(new Role()))
@@ -130,13 +130,17 @@ public class AdminController {
 
     @PostMapping("/editUser")
     String editUser(User user, HttpServletRequest request, String passwordSubmission, String confirmPassword) {
+        if (!passwordSubmission.equals("")) {
+            if (!passwordSubmission.equals(confirmPassword)) {
+                return "redirect:/editUser?id=" + user.getId() + "&error=1";
+            }
 
-        if (!passwordSubmission.equals(confirmPassword)) {
-            return "redirect:/editUser?id=" + user.getId() + "&error=1";
+            user.setPassword(encoder.encode(passwordSubmission));
+        } else {
+            User oldUser = userRepository.findById(user.getId()).orElse(user);
+            user.setPassword(oldUser.getPassword());
         }
-
-        user.setPassword(encoder.encode(passwordSubmission));
-
+        
         String[] roleStrings = request.getParameterValues("role");
 
         if (roleStrings != null) {
