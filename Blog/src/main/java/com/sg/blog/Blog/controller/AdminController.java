@@ -6,8 +6,10 @@ import com.sg.blog.Blog.dao.UserRepository;
 import com.sg.blog.Blog.entity.Post;
 import com.sg.blog.Blog.entity.Role;
 import com.sg.blog.Blog.entity.User;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class AdminController {
 
     @Autowired
     PasswordEncoder encoder;
-    
+
     @GetMapping("/admin")
     String showAdminPage(Model model) {
         List<User> users = userRepository.findAll();
@@ -46,7 +48,10 @@ public class AdminController {
                 .sorted(Comparator.comparing(Post::getTimestamp)
                         .reversed())
                 .collect(Collectors.toList());
-
+        
+        // Don't display our 'user deleted' placeholder.
+        users.remove(0);
+        
         model.addAttribute("users", users);
         model.addAttribute("posts", posts);
 
@@ -56,33 +61,84 @@ public class AdminController {
     @GetMapping("/editUser")
     String showEditPage(HttpServletRequest request, Model model, Integer error) {
         int id = Integer.parseInt(request.getParameter("id"));
-        
+
         User user = userRepository.findById(id).orElse(new User());
         List<Role> roles = roleRepository.findAll();
 
         model.addAttribute("user", user);
         model.addAttribute("roles", roles);
-        
-        if(error != null) {
-            if(error == 1) {
+
+        if (error != null) {
+            if (error == 1) {
                 model.addAttribute("error", "Passwords did not match, password was not updated.");
             }
         }
-        
+
         return "editUser";
     }
 
-    @PostMapping("/editUser")
-    String editUser(User user, String passwordSubmission, String confirmPassword) {
-        
-       if(passwordSubmission.equals(confirmPassword)) {
-           user.setPassword(encoder.encode(passwordSubmission));
-           return "redirect:/admin";
-       }
-        
-       return "redirect:/editUser?id=" + user.getId() + "&error=1";
+    @GetMapping("/createUser")
+    String showCreatePage(Model model, Integer error) {
+        List<Role> roles = roleRepository.findAll();
+
+        model.addAttribute("roles", roles);
+
+        if (error != null) {
+            if (error == 1) {
+                model.addAttribute("error", "Passwords did not match, password was not updated.");
+            }
+        }
+
+        return "createUser";
     }
-    
+
+    @PostMapping("/createUser")
+    String createUser(User user, HttpServletRequest request, String passwordSubmission, String confirmPassword) {
+
+        if (!passwordSubmission.equals(confirmPassword)) {
+            return "redirect:/createUser?id=" + user.getId() + "&error=1";
+        }
+
+        user.setPassword(encoder.encode(passwordSubmission));
+
+        String[] roleStrings = request.getParameterValues("role");
+        
+        if (roleStrings.length > 0) {
+            Set<Role> roles = Arrays.stream(roleStrings)
+                    .map(v -> roleRepository.findById(Integer.parseInt(v)).orElse(new Role()))
+                    .collect(Collectors.toSet());
+
+            user.setRoles(roles);
+        }
+
+        userRepository.save(user);
+
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/editUser")
+    String editUser(User user, HttpServletRequest request, String passwordSubmission, String confirmPassword) {
+
+        if (!passwordSubmission.equals(confirmPassword)) {
+            return "redirect:/editUser?id=" + user.getId() + "&error=1";
+        }
+
+        user.setPassword(encoder.encode(passwordSubmission));
+
+        String[] roleStrings = request.getParameterValues("role");
+
+        if (roleStrings != null) {
+            Set<Role> roles = Arrays.stream(roleStrings)
+                    .map(v -> roleRepository.findById(Integer.parseInt(v)).orElse(new Role()))
+                    .collect(Collectors.toSet());
+
+            user.setRoles(roles);
+        }
+        userRepository.save(user);
+
+        return "redirect:/admin";
+    }
+
     @GetMapping("/deleteUserAndPosts")
     @Transactional
     String deleteUserAndPosts(HttpServletRequest request) {
@@ -116,7 +172,7 @@ public class AdminController {
         blankUser.setId(1);
 
         for (Post post : posts) {
-            post.setUser(user);
+            post.setUser(blankUser);
             postRepository.save(post);
         }
 

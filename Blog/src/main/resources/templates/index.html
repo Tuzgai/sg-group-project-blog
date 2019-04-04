@@ -31,7 +31,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navLink">
             <ul class="navbar-nav ml-auto">
-                <li sec:authorize="isAuthenticated()" class="nav-item">
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
                     <a href="/admin" class="nav-link">Admin</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
@@ -102,7 +102,7 @@
             <div class="d-flex flex-column flex-md-row justify-content-between">
                 <ul class="list-inline">
                     <li class="list-inline-item" th:each="tag : ${post.tags}">
-                        <a th:href="'tags/' + ${tag.name}" th:text="${tag.name}"></a>
+                        <a th:href="@{/tags(tag=${tag.name})}" th:text="${tag.name}"></a>
                     </li>
                 </ul>
             </div>
